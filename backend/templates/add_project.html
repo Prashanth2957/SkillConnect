@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Project</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="proj-add-container">
+
+  <h1>🚀 Share Your Project</h1>
+  <p class="proj-add-subtitle">
+    Showcase your work and inspire others
+  </p>
+
+  <div class="proj-add-card">
+    <form method="POST">
+
+      <div class="proj-field">
+        <label>Project Title</label>
+        <input type="text" name="title" required>
+      </div>
+
+      <div class="proj-field">
+        <label>Description</label>
+        <textarea name="description" rows="4" required></textarea>
+      </div>
+
+      <div class="proj-field">
+        <label>Project Link (GitHub / Drive / Demo)</label>
+        <input type="url" name="link" required>
+      </div>
+
+      <button class="proj-add-btn" type="submit">
+        ➕ Publish Project
+      </button>
+
+    </form>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Community Projects</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="proj-container">
+  <h1>🌟 Community Projects</h1>
+  <p class="proj-subtitle">Explore what others have built</p>
+
+  <div class="proj-grid">
+    {% for p in projects %}
+    <div class="proj-card">
+
+      <h3>{{p[0]}}</h3>
+      <p class="proj-desc">{{p[1]}}</p>
+
+      <div class="proj-footer">
+        <span class="proj-author">By {{p[3]}}</span>
+        <a class="proj-btn" href="{{p[2]}}" target="_blank">
+          View Project
+        </a>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+</body>
+</html>

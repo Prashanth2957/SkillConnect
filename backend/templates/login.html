@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Responsive Portfolio Builder</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    .login-container {
+      max-width: 420px;
+      margin: 80px auto;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .login-container input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .login-btn {
+      width: 95%;
+      padding: 12px;
+      margin-top: 15px;
+      background: linear-gradient(135deg, #2563eb, #06b6d4);
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .login-links {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #cbd5f5;
+    }
+
+    .login-links a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-links a:hover {
+      text-decoration: underline;
+    }
+
+    .divider {
+      margin: 25px 0;
+      height: 1px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .recruiter-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 18px;
+      background: linear-gradient(135deg, #f97316, #facc15);
+      border-radius: 20px;
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .recruiter-btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="login-container">
+  <h2>Student Login</h2>
+
+  <form action="/login" method="post">
+    <input type="email" name="email" placeholder="Enter Email" required>
+    <input type="password" name="password" placeholder="Enter Password" required>
+    <button type="submit" class="login-btn">Login</button>
+  </form>
+
+  <div class="login-links">
+    <p>New user? <a href="/signup">Create Student Account</a></p>
+  </div>
+
+  <div class="divider"></div>
+
+  <p style="color:#cbd5f5;">Are you a recruiter?</p>
+  <a href="/recruiter/login" class="recruiter-btn">Recruiter Login</a>
+</div>
+
+</body>
+</html>
+

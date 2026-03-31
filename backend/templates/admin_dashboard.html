@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Admin Dashboard</h2>
+
+  <table border="1" cellpadding="10">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Resume Score</th>
+      <th>Activity Score</th>
+      <th>Total Score</th>
+      <th>View</th>
+    </tr>
+
+    {% for user in users %}
+    <tr>
+      <td>{{ user[1] }}</td>
+      <td>{{ user[2] }}</td>
+      <td>{{ user[7] }}</td>
+      <td>{{ user[8] }}</td>
+      <td>{{ user[9] }}</td>
+      <td>
+        <a href="/candidate/{{ user[0] }}">View Profile</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <br>
+  <a href="/admin/logout">Logout</a>
+</div>
+
+</body>
+</html>

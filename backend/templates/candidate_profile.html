@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Candidate Profile</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ================= PROFILE HEADER ================= -->
+  <div class="profile-header">
+    <div class="profile-left">
+      <h1 class="profile-name">{{ user[0] }}</h1>
+
+      <!-- Followers / Following -->
+      <div class="follow-bar">
+        <a href="/followers/{{ user_id }}" class="follow-link">
+          <strong>{{ followers_count }}</strong> Followers
+        </a>
+        <span class="dot">•</span>
+        <a href="/following/{{ user_id }}" class="follow-link">
+          <strong>{{ following_count }}</strong> Following
+        </a>
+      </div>
+    </div>
+
+    <!-- Follow / Unfollow Button -->
+    {% if session.get("user_id") and session.get("user_id") != user_id %}
+      {% if is_following %}
+        <a href="/unfollow/{{ user_id }}" class="follow-btn">❌ Unfollow</a>
+      {% else %}
+        <a href="/follow/{{ user_id }}" class="follow-btn">➕ Follow</a>
+      {% endif %}
+    {% endif %}
+  </div>
+  <!-- ================================================ -->
+
+  <!-- ================= CONTACT INFO ================= -->
+  <div class="card">
+    <h3>Contact Info</h3>
+    <p>📧 {{ user[1] }}</p>
+    <p>📞 {{ user[2] }}</p>
+
+    {% if user[3] %}
+      <p>🔗 <a href="{{ user[3] }}" target="_blank">LinkedIn</a></p>
+    {% endif %}
+
+    {% if user[4] %}
+      <p>🐙 <a href="{{ user[4] }}" target="_blank">GitHub</a></p>
+    {% endif %}
+  </div>
+
+  <!-- ================= PERFORMANCE ================= -->
+  <div class="card">
+    <h3>Performance</h3>
+    <p>Resume Score: {{ user[5] }}</p>
+    <p>Activity Score: {{ user[6] }}</p>
+    <p><b>Total:</b> {{ user[5] + user[6] }}</p>
+  </div>
+
+  <!-- ================= RESUME ================= -->
+  {% if user[7] %}
+    <div class="card">
+      <h3>Resume</h3>
+      <a href="/static/resumes/{{ user[7] }}" target="_blank" class="proj-btn">
+        📄 View Resume
+      </a>
+    </div>
+  {% else %}
+    <p class="muted-text"><i>No resume uploaded</i></p>
+  {% endif %}
+
+  <!-- ================= PROJECTS ================= -->
+  <h2>Projects</h2>
+
+  {% if can_view %}
+    {% if projects %}
+      {% for p in projects %}
+        <div class="proj-card">
+          <h3>{{ p[0] }}</h3>
+          <p>{{ p[1] }}</p>
+          {% if p[2] %}
+            <a href="{{ p[2] }}" target="_blank" class="proj-btn">View Project</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No projects added</p>
+    {% endif %}
+  {% else %}
+    <div class="card">
+      <p>🔒 Follow this user to view projects</p>
+    </div>
+  {% endif %}
+
+  <!-- ================= CERTIFICATES ================= -->
+  <h2>Certificates</h2>
+
+  {% if can_view %}
+    <div class="gal-grid">
+      {% if certificates %}
+        {% for c in certificates %}
+          {% if c.endswith('.pdf') %}
+            <embed src="/static/uploads/{{ c }}" class="gal-pdf">
+          {% else %}
+            <img src="/static/uploads/{{ c }}" class="gal-img">
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <p>No certificates uploaded</p>
+      {% endif %}
+    </div>
+  {% else %}
+    <div class="card">
+      <p>🔒 Follow this user to view certificates</p>
+    </div>
+  {% endif %}
+
+</div>
+
+</body>
+</html>

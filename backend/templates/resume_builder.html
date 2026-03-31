@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="/static/css/style.css">
+
+<div class="rb-container">
+  <h1>Smart Resume Builder</h1>
+  <p class="rb-subtitle">Create a professional resume in minutes</p>
+
+  <form action="/build-resume" method="POST" class="rb-form">
+
+    <div class="rb-card">
+      <h3>Personal Details</h3>
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email">
+      <input type="text" name="phone" placeholder="Phone">
+    </div>
+
+    <div class="rb-card">
+      <h3>Professional Summary</h3>
+      <textarea name="summary" placeholder="Write about yourself"></textarea>
+    </div>
+
+    <div class="rb-card">
+      <h3>Skills</h3>
+      <textarea name="skills" placeholder="Python, Java, React, SQL..."></textarea>
+    </div>
+
+    <div class="rb-card">
+      <h3>Education</h3>
+      <textarea name="education" placeholder="Degree, College, Year"></textarea>
+    </div>
+
+    <div class="rb-card">
+      <h3>Experience</h3>
+      <textarea name="experience" placeholder="Internships / Jobs"></textarea>
+    </div>
+
+    <div class="rb-card">
+      <h3>Projects</h3>
+      <textarea name="projects" placeholder="Project details"></textarea>
+    </div>
+
+    <button class="rb-btn" type="submit">Build My Resume</button>
+  </form>
+</div>
+

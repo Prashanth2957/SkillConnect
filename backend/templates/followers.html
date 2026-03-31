@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>{{ title }}</h2>
+
+  {% if users %}
+    {% for u in users %}
+      <div class="proj-card">
+        <h3>{{ u[1] }}</h3>
+        <a href="/candidate/{{ u[0] }}" class="proj-btn">View Profile</a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No users found.</p>
+  {% endif %}
+</div>
+
+</body>
+</html>

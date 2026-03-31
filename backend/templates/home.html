@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Portfolio Builder</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="/static/js/animations.js"></script>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+  <div class="nav-left">
+    <a href="/">Home</a>
+    <a href="/projects">Projects</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/suggestions">Suggestions</a>
+    <a href="/feed">Feed</a>
+  </div>
+
+  <form action="/search" method="get" class="search-form">
+    <input type="text" name="q" placeholder="Search users, skills, roles">
+    <button class="btn">Search</button>
+  </form>
+
+  <div class="nav-right">
+    <a href="/help" class="help-btn">Help & Support</a>
+
+    <!-- Admin -->
+    <a href="/admin/login">Admin</a>
+
+    {% if session.get("user") %}
+      <span style="color:white;">Welcome, {{ session["user"] }}</span>
+      <a href="/logout">Logout</a>
+    {% else %}
+      <a href="/login">Login</a>
+      <a href="/signup">Signup</a>
+    {% endif %}
+  </div>
+</div>
+<!-- ========================================= -->
+
+<!-- ===== TOP RIGHT CONTACT INFO ===== -->
+{% if user_info %}
+<div class="contact-box">
+  <h4>📇 Contact Info</h4>
+  <p>📧 {{ user_info[1] }}</p>
+  <p>📞 {{ user_info[2] }}</p>
+  <p>
+    🔗 <a href="{{ user_info[3] }}" target="_blank">LinkedIn</a> |
+    💻 <a href="{{ user_info[4] }}" target="_blank">GitHub</a>
+  </p>
+</div>
+{% endif %}
+<!-- ================================= -->
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="container">
+  <h1>Responsive Portfolio Builder</h1>
+  <p class="subtitle">Build your career portfolio with AI-powered tools</p>
+
+  <div class="card">
+    <h3>Resume Analyzer</h3>
+    <p>AI-powered career suggestions</p>
+    <a href="/analyze"><button class="btn">Analyze</button></a>
+  </div>
+
+  <div class="card">
+    <h3>Resume Builder</h3>
+    <p>Create resume & download PDF</p>
+    <a href="/resume-builder"><button class="btn">Build</button></a>
+  </div>
+
+  <div class="card">
+    <h3>Projects</h3>
+    <p>Showcase your work</p>
+    <a href="/projects"><button class="btn">View</button></a>
+  </div>
+
+  <div class="card">
+    <h3>Gallery</h3>
+    <p>Certificates & Achievements</p>
+    <a href="/gallery"><button class="btn">Open</button></a>
+  </div>
+
+  <div class="card">
+    <h3>Add Project</h3>
+    <p>Share your project publicly</p>
+    <a href="/add-project"><button class="btn">Add</button></a>
+  </div>
+
+  {% if session.get("user") %}
+  <div class="card">
+    <h3>Upload Resume</h3>
+    <p>Upload your resume for admin and profile visibility</p>
+    <form action="/upload-resume" method="post" enctype="multipart/form-data">
+      <input type="file" name="resume" accept=".pdf" required><br><br>
+      <button class="btn">Upload Resume</button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+<!-- =============================================== -->
+
+<!-- ================= CHATBOT ================= -->
+<style>
+#chatbot-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #0d6efd, #00c6ff);
+    color: white;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    z-index: 9999;
+    border: none;
+}
+
+#chatbox {
+    position: fixed;
+    bottom: 95px;
+    right: 20px;
+    width: 340px;
+    height: 450px;
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+    z-index: 9999;
+    border: 1px solid #ddd;
+}
+
+#chat-header {
+    background: linear-gradient(135deg, #0d6efd, #00c6ff);
+    color: white;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#messages {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    background: #f5f7fb;
+    font-size: 14px;
+    color: #222;
+}
+
+.msg {
+    margin: 10px 0;
+    padding: 10px 14px;
+    border-radius: 14px;
+    max-width: 80%;
+    word-wrap: break-word;
+    line-height: 1.4;
+}
+
+.user-msg {
+    background: #0d6efd;
+    color: white;
+    margin-left: auto;
+    text-align: right;
+}
+
+.bot-msg {
+    background: #e9ecef;
+    color: #111;
+    margin-right: auto;
+    text-align: left;
+}
+
+#chat-input-area {
+    display: flex;
+    padding: 10px;
+    background: #fff;
+    border-top: 1px solid #ddd;
+}
+
+#userInput {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+}
+
+#sendBtn {
+    margin-left: 8px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 10px;
+    background: #0d6efd;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#sendBtn:hover {
+    background: #0b5ed7;
+}
+</style>
+
+<button id="chatbot-btn" onclick="toggleChat()">💬</button>
+
+<div id="chatbox">
+    <div id="chat-header">AI Help Assistant</div>
+    <div id="messages">
+        <div class="msg bot-msg">Hi 👋 Ask me about login, signup, resume, projects, certificates, admin, or follow system.</div>
+    </div>
+    <div id="chat-input-area">
+        <input type="text" id="userInput" placeholder="Ask something..." onkeypress="handleKey(event)">
+        <button id="sendBtn" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+function toggleChat() {
+    const chatbox = document.getElementById("chatbox");
+    if (chatbox.style.display === "none" || chatbox.style.display === "") {
+        chatbox.style.display = "flex";
+    } else {
+        chatbox.style.display = "none";
+    }
+}
+
+function appendMessage(text, type) {
+    const messages = document.getElementById("messages");
+    const msgDiv = document.createElement("div");
+    msgDiv.classList.add("msg", type);
+    msgDiv.innerText = text;
+    messages.appendChild(msgDiv);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const msg = input.value.trim();
+
+    if (!msg) return;
+
+    appendMessage(msg, "user-msg");
+    input.value = "";
+
+    fetch("/chatbot", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: msg })
+    })
+    .then(response => response.json())
+    .then(data => {
+        appendMessage(data.reply || "No reply from bot.", "bot-msg");
+    })
+    .catch(error => {
+        console.error("Chatbot Error:", error);
+        appendMessage("⚠️ Server not responding.", "bot-msg");
+    });
+}
+
+function handleKey(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+}
+</script>
+<!-- ================= END CHATBOT ================= -->
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Certificates & Achievements</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+<h1 style="text-align:center">Certificates & Achievements</h1>
+
+<div style="text-align:center; margin:20px;">
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" required>
+    <button type="submit">Upload Certificate</button>
+</form>
+</div>
+
+<div class="gallery">
+
+{% for f in files %}
+<div class="card">
+
+{% if f.endswith('.pdf') %}
+<embed src="/static/uploads/{{f}}" width="300" height="200">
+{% else %}
+<img src="/static/uploads/{{f}}" width="300">
+{% endif %}
+
+<br>
+
+<span>❤️ {{ likes.get(f,0) }}</span>
+
+</div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>

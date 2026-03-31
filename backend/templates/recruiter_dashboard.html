@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recruiter Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Top Candidates</h1>
+
+  {% for u in users %}
+    <div class="proj-card">
+
+      <!-- Candidate Name -->
+      <h3>{{ u[1] }}</h3>
+
+      <!-- Performance Badge -->
+      {% if u[4] >= 50 %}
+        <span style="color:gold; font-weight:bold;">🏆 Top Performer</span>
+      {% elif u[4] >= 30 %}
+        <span style="color:silver; font-weight:bold;">🥈 Strong Candidate</span>
+      {% else %}
+        <span style="color:#cd7f32; font-weight:bold;">🥉 Emerging</span>
+      {% endif %}
+
+      <hr>
+
+      <!-- Scores -->
+      <p><b>Resume Score:</b> {{ u[2] }}</p>
+      <p><b>Activity Score:</b> {{ u[3] }}</p>
+      <p><b>Total Score:</b> {{ u[4] }}</p>
+
+      <!-- Action -->
+      <a href="/candidate/{{ u[0] }}" class="proj-btn">View Full Profile</a>
+    </div>
+  {% endfor %}
+
+</div>
+
+</body>
+</html>
+

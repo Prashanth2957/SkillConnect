@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Following</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>👥 Following</h1>
+
+  {% for u in following %}
+    <div class="proj-card">
+      <h3>{{ u[1] }}</h3>
+      <a href="/candidate/{{ u[0] }}" class="proj-btn">View Profile</a>
+    </div>
+  {% else %}
+    <p>Not following anyone yet.</p>
+  {% endfor %}
+</div>
+
+</body>
+</html>

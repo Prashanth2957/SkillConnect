@@ -1,0 +1,10 @@
+<h2>👥 People You May Know</h2>
+
+{% for u in users %}
+  <div class="card">
+    <b>{{ u[1] }}</b>
+    <a href="/candidate/{{ u[0] }}">View</a>
+  </div>
+{% else %}
+  <p>No suggestions right now</p>
+{% endfor %}

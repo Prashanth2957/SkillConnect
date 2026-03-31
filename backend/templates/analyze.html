@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="/static/css/style.css">
+
+<div class="container">
+  <h1>AI Resume Analyzer</h1>
+  <p class="subtitle">Upload your resume and get AI career insights</p>
+
+  <div class="card">
+    <form id="resumeForm" enctype="multipart/form-data">
+      <input type="file" name="resume_file" accept=".pdf,.docx" required>
+      <br><br>
+      <button class="btn" type="submit">Analyze Resume</button>
+    </form>
+
+    <div id="result" style="margin-top:20px;"></div>
+  </div>
+</div>
+
+<script>
+document.getElementById("resumeForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  const formData = new FormData(this);
+
+  document.getElementById("result").innerHTML = "Analyzing... ⏳";
+
+  try {
+    const res = await fetch("/analyze-file", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if(data.error){
+      document.getElementById("result").innerHTML =
+        "<span style='color:red'>" + data.error + "</span>";
+      return;
+    }
+
+    document.getElementById("result").innerHTML = `
+      <h3>Suggested Role: ${data.prediction}</h3>
+      <p><b>Expected Salary:</b> ${data.salary}</p>
+      <p><b>Recommended Courses:</b></p>
+      <ul>${data.courses.map(c => `<li>${c}</li>`).join("")}</ul>
+    `;
+  } catch(err){
+    document.getElementById("result").innerHTML =
+      "<span style='color:red'>Error getting result</span>";
+  }
+});
+</script>
+

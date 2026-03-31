@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search Results</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>🔍 Search Results</h1>
+
+  {% if results %}
+    {% for user in results %}
+      <div class="proj-card">
+        <h3>{{ user[1] }}</h3>
+        <p>📧 {{ user[2] }}</p>
+
+        <a href="/candidate/{{ user[0] }}" class="proj-btn">
+          View Profile
+        </a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No users found.</p>
+  {% endif %}
+</div>
+
+</body>
+</html>
